@@ -1,0 +1,37 @@
+$cargo test --verbose     
+
+
+   Compiling impl_test v0.1.0 (file:///home/jlorenzo/git/cfg-bug/impl_test)
+     Running `rustc impl_test/src/lib.rs --crate-name impl_test --crate-type lib -g -C metadata=645d5e11f8b1caef -C extra-filename=-645d5e11f8b1caef --out-dir /home/jlorenzo/git/cfg-bug/target/debug/deps --emit=dep-info,link -L dependency=/home/jlorenzo/git/cfg-bug/target/debug/deps -L dependency=/home/jlorenzo/git/cfg-bug/target/debug/deps`
+   Compiling impl_prod v0.1.0 (file:///home/jlorenzo/git/cfg-bug/impl_prod)
+     Running `rustc impl_prod/src/lib.rs --crate-name impl_prod --crate-type lib -g -C metadata=7906cdbb5d2a317a -C extra-filename=-7906cdbb5d2a317a --out-dir /home/jlorenzo/git/cfg-bug/target/debug/deps --emit=dep-info,link -L dependency=/home/jlorenzo/git/cfg-bug/target/debug/deps -L dependency=/home/jlorenzo/git/cfg-bug/target/debug/deps`
+   Compiling cfg-bug v0.1.0 (file:///home/jlorenzo/git/cfg-bug)
+     Running `rustc src/lib.rs --crate-name cfg_bug --crate-type lib -g --test -C metadata=798294001bb24d64 -C extra-filename=-798294001bb24d64 --out-dir /home/jlorenzo/git/cfg-bug/target/debug --emit=dep-info,link -L dependency=/home/jlorenzo/git/cfg-bug/target/debug -L dependency=/home/jlorenzo/git/cfg-bug/target/debug/deps --extern impl_prod=/home/jlorenzo/git/cfg-bug/target/debug/deps/libimpl_prod-7906cdbb5d2a317a.rlib --extern impl_test=/home/jlorenzo/git/cfg-bug/target/debug/deps/libimpl_test-645d5e11f8b1caef.rlib`
+     Running `rustc src/lib.rs --crate-name cfg_bug --crate-type lib -g --out-dir /home/jlorenzo/git/cfg-bug/target/debug --emit=dep-info,link -L dependency=/home/jlorenzo/git/cfg-bug/target/debug -L dependency=/home/jlorenzo/git/cfg-bug/target/debug/deps --extern impl_prod=/home/jlorenzo/git/cfg-bug/target/debug/deps/libimpl_prod-7906cdbb5d2a317a.rlib --extern impl_test=/home/jlorenzo/git/cfg-bug/target/debug/deps/libimpl_test-645d5e11f8b1caef.rlib`
+     Running `rustc tests/should_foo.rs --crate-name should_foo --crate-type bin -g --test -C metadata=fe68f598a667849b -C extra-filename=-fe68f598a667849b --out-dir /home/jlorenzo/git/cfg-bug/target/debug --emit=dep-info,link -L dependency=/home/jlorenzo/git/cfg-bug/target/debug -L dependency=/home/jlorenzo/git/cfg-bug/target/debug/deps --extern impl_prod=/home/jlorenzo/git/cfg-bug/target/debug/deps/libimpl_prod-7906cdbb5d2a317a.rlib --extern impl_test=/home/jlorenzo/git/cfg-bug/target/debug/deps/libimpl_test-645d5e11f8b1caef.rlib --extern cfg_bug=/home/jlorenzo/git/cfg-bug/target/debug/libcfg_bug.rlib`
+     Running `/home/jlorenzo/git/cfg-bug/target/debug/cfg_bug-798294001bb24d64`
+
+running 1 test
+test tests::it_should_do_foo_with_test_impl ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured
+
+     Running `/home/jlorenzo/git/cfg-bug/target/debug/should_foo-fe68f598a667849b`
+
+running 1 test
+test tests::it_should_do_foo_with_test_impl ... FAILED
+
+failures:
+
+---- tests::it_should_do_foo_with_test_impl stdout ----
+	thread 'tests::it_should_do_foo_with_test_impl' panicked at 'assertion failed: `(left == right)` (left: `"foo TEST"`, right: `"foo PROD"`)', tests/should_foo.rs:9
+note: Run with `RUST_BACKTRACE=1` for a backtrace.
+
+
+failures:
+    tests::it_should_do_foo_with_test_impl
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured
+
+error: test failed
+
