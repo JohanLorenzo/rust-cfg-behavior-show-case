@@ -1,0 +1,8 @@
+[package]
+name = "cfg-bug"
+version = "0.1.0"
+authors = ["Johan Lorenzo <jlorenzo@mozilla.com>"]
+
+[dependencies]
+impl_prod = { path = "./impl_prod/" }
+impl_test = { path = "./impl_test/" }
